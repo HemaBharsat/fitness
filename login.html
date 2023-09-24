@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Validation in HTML</title>
+    <link rel="stylesheet" href="style1.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" />
+</head>
+
+<body>
+    <form action="dashboard.html">
+        <h2>Form Validation</h2>
+
+        <div class="form-group email">
+            <label for="email">Email Address:</label>
+            <input type="email" id="email" name="email" required placeholder="Enter your email address">
+            <span id="emailValidationMessage"></span>
+            <br><br>
+        </div>
+
+        <div class="form-group password">
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required placeholder="Enter your password">
+        </div>
+
+        <div class="form-group submit-btn">
+            <input type="submit" value="Submit">
+        </div>
+    </form>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        const apiKey = '2869b1b77amshaaae9c02d3bb286p132583jsn50a368029c11'; // Replace with your actual API key
+
+        const emailInput = document.getElementById("email");
+        const emailValidationMessage = document.getElementById("emailValidationMessage");
+
+        emailInput.addEventListener("input", async function () {
+            const emailAddress = emailInput.value;
+
+            const settings = {
+                async: true,
+                crossDomain: true,
+                url: 'https://email-validator8.p.rapidapi.com/api/v2.0/email',
+                method: 'POST',
+                headers: {
+                    'content-type': 'application/x-www-form-urlencoded',
+                    'X-RapidAPI-Key': '2869b1b77amshaaae9c02d3bb286p132583jsn50a368029c11',
+                    'X-RapidAPI-Host': 'email-validator8.p.rapidapi.com'
+                },
+                data: {
+                    email: emailAddress
+                }
+            };
+
+            try {
+                const response = await $.ajax(settings);
+                console.log(response); // Display the API response in the browser console
+
+                // Update the validation message based on the API response
+                if (response.valid) {
+                    emailValidationMessage.textContent = "Email address is valid.";
+                    emailValidationMessage.style.color = "green";
+                } else {
+                    emailValidationMessage.textContent = "Please enter a valid email address.";
+                    emailValidationMessage.style.color = "red";
+                }
+            } catch (error) {
+                console.error("Error validating email address:", error);
+                emailValidationMessage.textContent = "An error occurred while validating the email address.";
+                emailValidationMessage.style.color = "red";
+            }
+        });
+
+        // Selecting form and input elements
+        const form = document.querySelector("form");
+        const passwordInput = document.getElementById("password");
+        const passToggleBtn = document.getElementById("pass-toggle-btn");
+
+        // Function to display error messages
+        const showError = (field, errorText) => {
+            field.classList.add("error");
+            const errorElement = document.createElement("small");
+            errorElement.classList.add("error-text");
+            errorElement.innerText = errorText;
+            field.closest(".form-group").appendChild(errorElement);
+        }
+
+        // Function to handle form submission
+        const handleFormData = (e) => {
+            e.preventDefault();
+
+            // Clearing previous error messages
+            document.querySelectorAll(".form-group .error").forEach(field => field.classList.remove("error"));
+            document.querySelectorAll(".error-text").forEach(errorText => errorText.remove());
+
+            // Checking for any remaining errors before form submission
+            const errorInputs = document.querySelectorAll(".form-group .error");
+            if (errorInputs.length > 0) return;
+
+            // Submitting the form
+            form.submit();
+        }
+        // Handling form submission event
+        form.addEventListener("submit", handleFormData);
+
+    </script>
+</body>
+
+</html>

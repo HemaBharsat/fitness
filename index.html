@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fit-GYM Landing Page</title>
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css" />
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+    <!-- Include Chart.js library -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+    <!-- Menu -->
+    <div class="menu">
+        <div class="container flex">
+            <div class="logo">
+                <img src="White logo - no background.png" alt="" />
+            </div>
+
+
+            <ul class="nav">
+                <li class="nav-item"><a href="#">Home</a></li>
+                <li class="nav-item"><a href="#why-us">Features</a></li>
+                <li class="nav-item"><a href="#explore">Explore</a></li>
+                <li class="nav-item"><a href="#intake">Healthify</a></li>
+                <li class="nav-item"><a href="#trainer">Trainers</a></li>
+                <li class="nav-item"><a href="#testimonial">Testimonial</a></li>
+            </ul>
+
+            <a href="register.html" class="btn">Register</a>
+            <a href="login.html" class="btn">Login</a>
+            <a class="btn" href="display.html">Admin</a>
+        </div>
+    </div>
+    <!-- End Menu -->
+
+    <!-- Header -->
+    <header class="header">
+        <div class="container flex">
+            <div class="text">
+                <h1 class="mb">
+                    Work out <br />
+                    <span>your</span> way !
+                </h1>
+
+                <p class="mb">
+                    Whether you're a seasoned fitness enthusiast or just starting your wellness journey,
+                    we're here to empower you with tools and insights to make informed choices about your health.
+                </p>
+
+                <a href="#" class="btn mt">Chat with Us</a>
+            </div>
+
+            <div class="visual">
+                <img src="home.png" alt="">
+            </div>
+        </div>
+    </header>
+    <!-- End Header -->
+
+    <!-- Why Us -->
+    <div class="section" id="why-us">
+        <div class="container flex">
+            <div class="text">
+                <h2 class="primary mb">Why Choose Us?</h2>
+                <p>When it comes to achieving your fitness goals, selecting the right resources and guidance is
+                    paramount.
+                    At FIT, we understand that the journey to a healthier lifestyle can be challenging,
+                    and that's why we stand out as your top choice. </p>
+                <br>
+                <h3 class="secondary mb">Consulatation with Expert.</h3>
+                <p class="tertiary">
+                    Our team comprises certified fitness professionals with years of experience in various disciplines,
+                    including personal training, nutrition, physiotherapy, and more. When you choose us, you gain access
+                    to a pool of experts who are dedicated to helping you achieve your fitness goals.
+                </p>
+
+                <h3 class="secondary mb">Consulatation with Expert.</h3>
+                <p class="tertiary">
+
+                </p>
+            </div>
+            <div class="visual">
+                <img src="man.png" alt="" />
+            </div>
+        </div>
+    </div>
+    <!-- End Why Us -->
+
+    <!-- Explore -->
+    <div class="section" id="intake">
+        <h2 class="primary mb">Check your Intake </h2>
+        <div class="container flex">
+
+            <form action="#">
+                <h3 class="secondary mb">Enter your proportions: </h2>
+                    <!-- Add input fields for nutritional intake -->
+                    <div class="form-control">
+                        <input type="number" id="proteins" name="proteins" step="0.01" required>
+                        <label for="proteins">Proteins (g):</label>
+                    </div>
+
+                    <div class="form-control">
+                        <input type="number" id="fats" name="fats" step="0.01" required>
+                        <label for="fats">Fats (g):</label>
+                    </div>
+
+                    <div class="form-control">
+                        <input type="number" id="fiber" name="fiber" step="0.01" required>
+                        <label for="fiber">Fiber (g):</label>
+                    </div>
+
+                    <div class="form-control">
+                        <input type="number" id="carbs" name="carbs" step="0.01" required>
+                        <label for="carbs">Carbs (g):</label>
+                    </div>
+
+                    <div class="form-group submit-btn">
+                        <button type="button" onclick="nextTab()">Next</button>
+                    </div>
+
+            </form>
+
+            <div class="chart-container">
+                <canvas id="pieChart1" width="250" height="250"></canvas>
+                <div id="dietMessage"></div>
+            </div>
+
+            <div class="tabs">
+                <div class="tab active" onclick="changeTab(0)"></div>
+                <div class="tab" onclick="changeTab(1)"></div>
+            </div>
+
+            <button type="button" onclick="pdf()">Download Pdf</button>
+        </div>
+    </div>
+
+    <!-- End Explore -->
+
+    <!-- Trainer -->
+    <div class="section" id="trainer">
+        <h2 class="primary mb">Our Professional Trainers</h2>
+        <div class="container flex">
+            <div class="trainer">
+                <img src="p1.png" alt="" />
+                <h3 class="secondary mb">Alan Smith</h3>
+                <p class="tertiary mb">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla.
+                </p>
+
+                <a href="#" class="btn-2">
+                    <ion-icon name="arrow-redo-circle-outline"></ion-icon>
+                </a>
+            </div>
+
+            <div class="trainer">
+                <img src="p2.png" alt="" />
+                <h3 class="secondary mb">Alan Smith</h3>
+                <p class="tertiary mb">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla.
+                </p>
+
+                <a href="#" class="btn-2">
+                    <ion-icon name="arrow-redo-circle-outline"></ion-icon>
+                </a>
+            </div>
+
+            <div class="trainer">
+                <img src="p3.png" alt="" />
+                <h3 class="secondary mb">Alan Smith</h3>
+                <p class="tertiary mb">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla.
+                </p>
+
+                <a href="#" class="btn-2">
+                    <ion-icon name="arrow-redo-circle-outline"></ion-icon>
+                </a>
+            </div>
+        </div>
+    </div>
+    <!-- End Trainer -->
+
+    <!-- Testimonial -->
+    <div class="section" id="testimonial">
+        <div class="container flex">
+            <div class="text">
+                <h2 class="primary">
+                    That's What Our Super <br />
+                    Client Says
+                </h2>
+
+                <br />
+                <br />
+                <br />
+
+                <div class="client">
+                    <img src="https://raw.githubusercontent.com/programmercloud/pgc-gym/main/img/client1.jpg" alt="" />
+                    <h2 class="secondary">Exelent Training</h2>
+                    <p class="tertiary">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi
+                        quas voluptatem ad, repudiandae voluptates odio deleniti
+                        reiciendis in veniam quidem expedita maxime error fugit. Pariatur
+                        quasi sunt aut id. Lorem, ipsum dolor sit amet consectetur
+                        adipisicing elit. Neque, officiis.
+                    </p>
+                </div>
+            </div>
+            <div class="visual">
+                <img src="https://raw.githubusercontent.com/programmercloud/pgc-gym/main/img/testimonial.png" alt="" />
+            </div>
+        </div>
+    </div>
+    <!-- End Testimonial -->
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container flex">
+            <span>Copyright © 2023 All Rights Reserved</span>
+            <a href="#">Home</a>
+        </div>
+    </footer>
+
+    <!-- End Footer -->
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.esm.js"></script>
+    <script nomodule src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.js"></script>
+    <script>
+        // Function to handle the button click event
+        function redirectToLoginPage() {
+            // Redirect to the "login.html" page
+            window.location.href = "login.html";
+        }
+
+        // Add a click event listener to the "Login" button
+        document.getElementById("loginButton").addEventListener("click", redirectToLoginPage);
+
+        // Your JavaScript code for data input, chart creation, and tab switching here
+        let healthData = {
+            proteins: [],
+            fats: [],
+            fiber: [],
+            carbs: [],
+        };
+
+        // Function to change tabs
+        function changeTab(tabIndex) {
+            const tabs = document.querySelectorAll('.tab');
+            const tabContents = document.querySelectorAll('.tab-content');
+            tabs.forEach((tab, index) => {
+                if (index === tabIndex) {
+                    tab.classList.add('active');
+                    tabContents[index].classList.add('active');
+                } else {
+                    tab.classList.remove('active');
+                    tabContents[index].classList.remove('active');
+                }
+            });
+        }
+
+        // Function to move to the next tab
+        function nextTab() {
+            const currentTab = document.querySelector('.tab.active');
+            const currentIndex = Array.from(document.querySelectorAll('.tab')).indexOf(currentTab);
+
+            if (currentIndex === 0) {
+                const proteins = parseFloat(document.getElementById('proteins').value);
+                const fats = parseFloat(document.getElementById('fats').value);
+                const fiber = parseFloat(document.getElementById('fiber').value);
+                const carbs = parseFloat(document.getElementById('carbs').value);
+
+                if (isNaN(proteins) || isNaN(fats) || isNaN(fiber) || isNaN(carbs)) {
+                    alert('Please enter valid numerical values for all fields.');
+                    return;
+                }
+
+                healthData.proteins.push(proteins);
+                healthData.fats.push(fats);
+                healthData.fiber.push(fiber);
+                healthData.carbs.push(carbs);
+
+                // Update the pie chart
+                updatePieChart();
+                updatePieChart1();
+            }
+
+            changeTab(1); // Move to the "Pie Chart" tab
+        }
+
+        // Function to update the pie chart
+        function updatePieChart() {
+            const pieChartCanvas = document.getElementById('pieChart');
+            const pieChart = new Chart(pieChartCanvas, {
+                type: 'pie',
+                data: {
+                    labels: ['Proteins', 'Fats', 'Fiber', 'Carbs'],
+                    datasets: [{
+                        data: [
+                            healthData.proteins.reduce((a, b) => a + b, 0),
+                            healthData.fats.reduce((a, b) => a + b, 0),
+                            healthData.fiber.reduce((a, b) => a + b, 0),
+                            healthData.carbs.reduce((a, b) => a + b, 0),
+                        ],
+                        backgroundColor: [
+                            'rgba(41, 163, 150, 1)',  // Start color (fully opaque)
+                            'rgba(41, 163, 150, 0.8)', // Midpoint with reduced opacity
+                            'rgba(41, 163, 150, 0.6)', // Midpoint with reduced opacity
+                            'rgba(41, 163, 150, 0.4)', // Midpoint with reduced opacity
+                            'rgba(41, 163, 150, 0.2)'  // End color (almost transparent)
+                        ],
+                    }],
+                },
+            });
+        }
+
+        // Function to update the pie chart and display a message
+        function updatePieChart1() {
+            const pieChartCanvas = document.getElementById('pieChart1');
+            const totalPercentage = 100; // Total percentage for a complete pie chart
+
+            // Calculate the percentage values for each nutrient based on your analysis
+            const carbPercentage = 60;
+            const proteinPercentage = 25;
+            const fatPercentage = 15;
+
+            // Calculate the actual values for each nutrient based on the total percentage
+            const totalValue = 100; // You can adjust this value based on your requirements
+            const carbValue = (carbPercentage / totalPercentage) * totalValue;
+            const proteinValue = (proteinPercentage / totalPercentage) * totalValue;
+            const fatValue = (fatPercentage / totalPercentage) * totalValue;
+
+            const pieChart = new Chart(pieChartCanvas, {
+                type: 'pie',
+                data: {
+                    labels: ['Carbohydrates', 'Proteins', 'Fats'],
+                    datasets: [{
+                        data: [carbValue, proteinValue, fatValue],
+                        backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'], // Adjust colors as needed
+                    }],
+                },
+            });
+
+            // Determine the type of diet and display a message
+            let dietType = '';
+            if (carbPercentage === 60 && proteinPercentage === 25 && fatPercentage === 15) {
+                dietType = 'a healthy diet (for sports)';
+            } else if (carbPercentage === 50 && proteinPercentage === 30 && fatPercentage === 20) {
+                dietType = 'a healthy diet';
+            } else {
+                dietType = 'an average diet';
+            }
+
+            // Display the diet type message on the web page
+            const dietMessageElement = document.getElementById('dietMessage');
+            if (dietType) {
+                dietMessageElement.innerHTML = `Based on the percentages, you have ${dietType}.`;
+            } else {
+                dietMessageElement.innerHTML = ''; // Clear the message if no type is determined
+            }
+        }
+
+        // Event listener for form submission in the input data tab
+        document.getElementById('healthDataForm').addEventListener('submit', function (event) {
+            event.preventDefault(); // Prevent actual form submission
+            nextTab();
+        });
+
+        // Event listener for tab changes
+        document.querySelectorAll('.tab').forEach((tab, index) => {
+            tab.addEventListener('click', () => changeTab(index));
+        });
+
+    </script>
+</body>
+
+</html>

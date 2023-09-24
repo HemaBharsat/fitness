@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Validation in HTML </title>
+    <link rel="stylesheet" href="style1.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" />
+    <style>
+        /* Add your CSS styles here */
+        .hidden {
+            display: none;
+        }
+
+        #tab4 p {
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+        <form id="multitab-form" action="index.html">
+            <h2>Form Validation</h2>
+
+            <div class="tab">
+                <div class="form-group fullname">
+                    <label for="fullname">Full Name:<span class="required-field">*</span></label>
+                    <input type="text" id="fullname" placeholder="Enter your full name" required>
+                </div>
+                <div class="form-group email">
+                    <label for="email">Email Address:<span class="required-field">*</span></label>
+                    <input type="email" id="email" name="email" required placeholder="Enter your email address"
+                        required>
+                    <span id="emailValidationMessage"></span>
+                </div>
+                <div class="form-group mobile">
+                    <label for="mobile">Mobile Number:<span class="required-field">*</span></label>
+                    <input type="text" id="mobile" name="mobile" required>
+                    <span id="mobileValidationMessage"></span>
+                </div>
+            </div>
+
+            <!-- Tab 3 -->
+            <div class="tab hidden">
+                <div class="form-group date">
+                    <label for="date">Birth Date:<span class="required-field">*</span></label>
+                    <input type="date" id="date" placeholder="Select your date" required>
+                </div>
+                <div class="form-group gender">
+                    <label for="gender">Gender:<span class="required-field">*</span></label>
+                    <select id="gender">
+                        <option value="" selected disabled>Select your gender</option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Updated "Membership Plans" options with distinct values -->
+            <div class="tab hidden">
+                <div class="form-group fullname">
+                    <label for="membership">Membership Plans:<span class="required-field">*</span></label>
+                    <select id="membership">
+                        <option value="" selected disabled>Select your Membership</option>
+                        <option value="Yearly">Yearly 4000Rs</option>
+                        <option value="SixMonthly">6 Monthly 2000Rs</option>
+                        <option value="ThirtyDays">30-Days 500Rs</option>
+                    </select>
+                </div>
+
+                <div class="form-group payment-button">
+                    <div class="razorpay-embed-btn" data-url="https://pages.razorpay.com/pl_MaGcGM4KgYOaKx/view"
+                        data-text="Pay Now" data-color="#0905ed" data-size="large">
+                        <script>
+                            (function () {
+                                var d = document; var x = !d.getElementById('razorpay-embed-btn-js')
+                                if (x) {
+                                    var s = d.createElement('script'); s.defer = !0; s.id = 'razorpay-embed-btn-js';
+                                    s.src = 'https://cdn.razorpay.com/static/embed_btn/bundle.js'; d.body.appendChild(s);
+                                } else {
+                                    var rzp = window['__rzp__'];
+                                    rzp && rzp.init && rzp.init()
+                                }
+                            })();
+                        </script>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Tab 4 (Final Tab with Success Message and Home Button) -->
+            <div class="tab hidden" id="tab4">
+                <div class="form-group home-btn">
+                    <p>Thankyou for Registering</p>
+                    <p>Happy Gyming</p>
+                </div>
+            </div>
+
+            <!-- Previous and Next buttons to navigate between tabs -->
+            <div style="overflow: auto;">
+                <div style="float: left;">
+                    <button type="button" id="prevBtn" onclick="navigateTab(-1)">Previous</button>
+                    <button type="button" class="nextBtn" onclick="navigateTab(1)">Next</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        // Function to handle form submission
+        const handleFormData = (e) => {
+            e.preventDefault();
+            // Retrieving input elements
+            const fullnameInput = document.getElementById("fullname");
+            const dateInput = document.getElementById("date");
+            const genderInput = document.getElementById("gender");
+            // Getting trimmed values from input fields
+            const fullname = fullnameInput.value.trim();
+            const date = dateInput.value;
+            const gender = genderInput.value;
+            // Clearing previous error messages
+            document.querySelectorAll(".form-group .error").forEach(field =>
+                field.classList.remove("error"));
+            document.querySelectorAll(".error-text").forEach(errorText => errorText.remove());
+            // Performing validation checks
+            if (fullname === "") {
+                showError(fullnameInput, "Enter your full name");
+            }
+            if (date === "") {
+                showError(dateInput, "Select your date of birth");
+            }
+            if (gender === "") {
+                showError(genderInput, "Select your gender");
+            }
+            // Checking for any remaining errors before form submission
+            const errorInputs = document.querySelectorAll(".form-group .error");
+            if (errorInputs.length > 0) return;
+
+            // Hide the current tab and show Tab 4
+            document.querySelector('.tab:not(.hidden)').classList.add('hidden');
+            document.getElementById('tab4').classList.remove('hidden');
+        }
+
+        // Handling form submission event
+        const form = document.querySelector("form");
+        form.addEventListener("submit", handleFormData);
+
+        // Function to validate email (you can use a more comprehensive email validation function)
+        function isValidEmail(email) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
+        }
+
+        //tabs
+        let currentTab = 0;
+        showTab(currentTab);
+
+        function showTab(n) {
+            const tabs = document.querySelectorAll('.tab');
+            tabs[n].classList.remove('hidden');
+            if (n === tabs.length - 1) {
+                document.querySelector('.nextBtn').innerHTML = 'Submit';
+                document.querySelector('.nextBtn').setAttribute('type', 'submit');
+            } else {
+                document.querySelector('.nextBtn').innerHTML = 'Next';
+                document.querySelector('.nextBtn').setAttribute('type', 'button');
+            }
+        }
+
+        function navigateTab(n) {
+            const tabs = document.querySelectorAll('.tab');
+            if (n === 1 && !validateTab(currentTab)) return false;
+            tabs[currentTab].classList.add('hidden');
+            currentTab += n;
+            if (currentTab >= tabs.length) {
+                form.submit(); // Submit the form on the last tab
+                return false;
+            }
+            showTab(currentTab);
+        }
+
+        function validateTab(tabIndex) {
+            if (tabIndex === 0) {
+                // Validation for Tab 1 (Full Name)
+                const fullnameInput = document.getElementById("fullname");
+                const fullname = fullnameInput.value.trim();
+
+                if (fullname === "") {
+                    showError(fullnameInput, "Enter your full name");
+                    return false;
+                }
+            } else if (tabIndex === 2) {
+                // Validation for Tab 3 (Email and Mobile Number)
+                const emailInput = document.getElementById("email");
+                const mobileInput = document.getElementById("mobile");
+                const email = emailInput.value.trim();
+                const mobile = mobileInput.value.trim();
+
+                // Email validation (you can add more comprehensive email validation if needed)
+                if (email === "" || !isValidEmail(email)) {
+                    showError(emailInput, "Please enter a valid email address.");
+                    return false;
+                }
+
+                // Mobile number validation (assuming it's already validated using the API)
+                if (mobile === "") {
+                    showError(mobileInput, "Mobile Number is required.");
+                    return false;
+                }
+            }
+            // Default case: No errors, validation passes
+            return true;
+        }
+
+        // Function to redirect to the home page (index.html)
+        function redirectToHome() {
+            window.location.href = "index.html";
+        }
+    </script>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

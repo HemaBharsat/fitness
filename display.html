@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submitted Data</title>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+
+        body {
+            background-image: linear-gradient( 135deg, #0f033b  10%, #2c0a64 100%);
+        }
+
+        /* Basic styling for the table */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            border: 2px solid black;
+        }
+
+        th,
+        td {
+            padding: 10px;
+            border: 2px solid black;
+            text-align: left;
+        }
+
+        /* Styling for the table headers */
+        thead th {
+            background-color: #c2bdbd;
+        }
+
+        table tbody td {
+            background-color: #e2dfdf;
+        }
+
+        /* Styling for the delete button */
+        .delete-button {
+            background-color: rgb(130, 106, 251);
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            border-radius: 10px;
+        }
+
+
+        .delete-button:hover {
+            background: rgb(88, 56, 250);
+        }
+
+        /* Buttons */
+        .generate-pdf-button {
+            padding: 10px 28px;
+            margin-top: 10px;
+            background-color: #f36320;
+            border-radius: 40px;
+            font-size: 20px;
+            font-weight: 400;
+            text-decoration: none;
+            color: #fff;
+            display: inline-block;
+            margin-left: 10px;
+        }
+
+        .generate-pdf-button:hover {
+            background: #f78f5e;
+            transition: 0.3s linear;
+        }
+
+        a {
+            margin-top: 10px;
+            color: #0077cc;
+            text-decoration: none;
+        }
+
+        a:hover {
+            color:  #f5f8fa;
+        }
+
+        h2{
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="canvas_div_pdf">
+        <h2>Submitted Data</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Full Name</th>
+                    <th>email</th>
+                    <th>mobile</th>
+                    <th>dob</th>
+                    <th>Gender</th>
+                    <th>Members</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody id="dataBody"></tbody>
+        </table>
+    </div>
+
+    <div class="link">
+        <a href="index.html">Back to Homepage</a>
+
+    </div>
+
+    <div>
+        <button class="generate-pdf-button" onclick="getPDF()">Generate PDF</button>
+    </div>
+
+    <script>
+
+        const urlSearchParams = new URLSearchParams(window.location.search);
+        const params = Object.fromEntries(urlSearchParams.entries());
+
+        function getPDF() {
+            const content = document.querySelector('.canvas_div_pdf');
+
+            html2pdf()
+                .from(content)
+                .save("HTML-Document.pdf");
+        }
+    </script>
+
+    <script src="display.js"></script>
+</body>
+
+</html>

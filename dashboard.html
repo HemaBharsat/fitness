@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<!-- Coding by CodingNepal | www.codingnepalweb.com -->
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="UTF-8">
+    <title> User Dashboard</title>
+    <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="dashstyle.css">
+    <!-- Boxicons CDN Link -->
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://www.gstatic.com/charts/loader.js"> </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+</head>
+
+<body>
+    <div class="sidebar">
+        <ul class="nav-links">
+            <li>
+                <a href="#" class="active">
+                    <i class='bx bx-home'></i>
+                    <span class="links_name">Home</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <i class='bx bxs-face'></i>
+                    <span class="links_name">Profile</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <i class='bx bx-dumbbell'></i>
+                    <span class="links_name">Workout Plans</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <i class='bx bx-food-tag'></i>
+                    <span class="links_name">Meal Plans</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <i class='bx bx-stats'></i>
+                    <span class="links_name">Stats</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <i class='bx bx-book-alt'></i>
+                    <span class="links_name">FAQ</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <i class='bx bxs-badge-check'></i>
+                    <span class="links_name">Badges</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <i class='bx bx-message'></i>
+                    <span class="links_name">Messages</span>
+                </a>
+            </li>
+            <li class="log_out">
+                <a href="#">
+                    <i class='bx bx-log-out'></i>
+                    <span class="links_name">Log out</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <section class="home-section">
+        <nav>
+            <div class="sidebar-button">
+                <i class='bx bx-menu sidebarBtn'></i>
+                <span class="dashboard">Welcome Back !</span>
+            </div>
+            <div class="search-box">
+                <input type="text" placeholder="Search...">
+                <i class='bx bx-search'></i>
+            </div>
+            <div class="profile-details">
+                <img src="profie.jpg" alt="">
+                <span class="admin_name">Hema Bharsat</span>
+            </div>
+        </nav>
+
+        <div class="home-content grid grid-cols-1">
+            <div class="overview-boxes">
+                <div class="box">
+                    <div class="right-side">
+                        <div class="box-topic">Steps</div>
+                        <div class="number">10,000</div>
+                        <div class="indicator">
+                            <i class='bx bx-up-arrow-alt'></i>
+                            <span class="text">Up from yesterday</span>
+                        </div>
+                    </div>
+                    <i class='bx bx-walk cart'></i>
+                </div>
+                <div class="box">
+                    <div class="right-side">
+                        <div class="box-topic">Calories</div>
+                        <div class="number">38,876</div>
+                        <div class="indicator">
+                            <i class='bx bx-up-arrow-alt'></i>
+                            <span class="text">Up from yesterday</span>
+                        </div>
+                    </div>
+                    <i class='bx bxs-hot cart two'></i>
+                </div>
+                <div class="box">
+                    <div class="right-side">
+                        <div class="box-topic">Distances</div>
+                        <div class="number">3.8km</div>
+                        <div class="indicator">
+                            <i class='bx bx-up-arrow-alt'></i>
+                            <span class="text">Up from yesterday</span>
+                        </div>
+                    </div>
+                    <i class='bx bx-target-lock cart three'></i>
+                </div>
+
+                <div class="box">
+                    <div class="right-side">
+                        <div class="box-topic">HeartRate</div>
+                        <div class="number">98</div>
+                        <div class="indicator">
+                            <i class='bx bx-up-arrow-alt'></i>
+                            <span class="text">Up from yesterday</span>
+                        </div>
+                    </div>
+                    <i class='bx bx-heart cart four'></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="container grid grid-cols-4">
+            <div class="container1">
+                <h2>Steps</h2>
+                <canvas id="stepsChart" width="150" height="150"></canvas>
+            </div>
+            <div class="container1">
+                <h2>Calories</h2>
+                <canvas id="caloriesChart" width="150" height="150"></canvas>
+            </div>
+            <div class="container1">
+                <h2>Distance</h2>
+                <canvas id="distancesChart" width="150" height="150"></canvas>
+            </div>
+            <div class="container1">
+                <h2>Activity Tracks</h2>
+                <canvas id="combinedChart" width="150" height="150"></canvas>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="column ">
+                <canvas id="myChart"></canvas>
+            </div>
+            <div class="column ">
+                <canvas id="workoutFrequencyChart"></canvas>
+
+            </div>
+        </div>
+
+    </section>
+    <script>
+        const xValues = [100, 200, 300, 400, 500, 600, 700, 800, 900, 1000];
+
+        new Chart("myChart", {
+            type: "line",
+            data: {
+                labels: xValues,
+                datasets: [
+                    {
+                        label: "Calories Burned",
+                        data: [860, 1140, 1060, 1060, 1070, 1110, 1330, 2210, 7830, 2478],
+                        borderColor: "red",
+                        fill: false,
+                    },
+                    {
+                        label: "Steps Taken",
+                        data: [1600, 1700, 1700, 1900, 2000, 2700, 4000, 5000, 6000, 7000],
+                        borderColor: "green",
+                        fill: false,
+                    },
+                    {
+                        label: "Distance Covered (in meters)",
+                        data: [300, 700, 2000, 5000, 6000, 4000, 2000, 1000, 200, 100],
+                        borderColor: "blue",
+                        fill: false,
+                    },
+                ],
+            },
+            options: {
+                legend: {
+                    display: true,
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: "Value",
+                        },
+                    },
+                    x: {
+                        title: {
+                            display: true,
+                            text: "Time (in minutes)",
+                        },
+                    },
+                },
+            },
+        });
+
+
+    </script>
+    <script>
+        let sidebar = document.querySelector(".sidebar");
+        let sidebarBtn = document.querySelector(".sidebarBtn");
+        sidebarBtn.onclick = function () {
+            sidebar.classList.toggle("active");
+            if (sidebar.classList.contains("active")) {
+                sidebarBtn.classList.replace("bx-menu", "bx-menu-alt-right");
+            } else
+                sidebarBtn.classList.replace("bx-menu-alt-right", "bx-menu");
+        }
+        const stepsData = {
+            datasets: [{
+                data: [10000, 20000 - 10000], // Replace with actual values
+                backgroundColor: ['#000080', '#fff'],
+            }],
+        };
+
+        const caloriesData = {
+            datasets: [{
+                data: [38876, 50000 - 38876], // Replace with actual values
+                backgroundColor: ['#FFFF00', '#fff'],
+            }],
+        };
+
+        const distancesData = {
+            datasets: [{
+                data: [3.8, 10 - 3.8], // Replace with actual values
+                backgroundColor: ['#DC143C', '#fff'],
+            }],
+        };
+
+        // Chart configuration
+        const chartConfig = {
+            type: 'doughnut',
+            options: {
+                responsive: false,
+                maintainAspectRatio: false,
+                cutout: '80%',
+                legend: {
+                    display: false,
+                    labels: {
+                        fontColor: '#white', // Change the label font color
+                    },
+                },
+            },
+        };
+
+        // Render the charts
+        const stepsChart = new Chart(document.getElementById('stepsChart').getContext('2d'), {
+            ...chartConfig,
+            data: stepsData,
+        });
+
+        const caloriesChart = new Chart(document.getElementById('caloriesChart').getContext('2d'), {
+            ...chartConfig,
+            data: caloriesData,
+        });
+
+        const distancesChart = new Chart(document.getElementById('distancesChart').getContext('2d'), {
+            ...chartConfig,
+            data: distancesData,
+        });
+
+        // Combined chart
+        const combinedData = {
+
+            datasets: [{
+                data: [10000, 38876, 3800], // Replace with actual values
+                backgroundColor: ['#000080', '#FFFF00', '#DC143C'],
+            }],
+        };
+
+        const combinedChart = new Chart(document.getElementById('combinedChart').getContext('2d'), {
+            ...chartConfig,
+            data: combinedData,
+        });
+
+
+        // Sample data (replace with your actual workout frequency data)
+        const workoutData = {
+            weeks: ["Week 1", "Week 2", "Week 3", "Week 4"],
+            frequency: [5, 8, 6, 7] // Number of workouts completed for each week
+        };
+
+        // Function to create the bar chart
+        function createWorkoutFrequencyChart() {
+            const ctx = document.getElementById("workoutFrequencyChart").getContext("2d");
+
+            const workoutChart = new Chart(ctx, {
+                type: "bar",
+                data: {
+                    labels: workoutData.weeks, // X-axis labels (weeks or months)
+                    datasets: [
+                        {
+                            label: "Workout Frequency",
+                            data: workoutData.frequency, // Number of workouts completed
+                            backgroundColor: "rgba(99, 13, 238, 0.6)",
+                            borderWidth: 1 // Border width of bars
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        x: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: "Weeks or Months"
+                            }
+                        },
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: "Frequency"
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Call the function to generate the chart
+        createWorkoutFrequencyChart();
+
+    </script>
+
+</body>
+
+</html>
